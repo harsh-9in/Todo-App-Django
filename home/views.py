@@ -1,7 +1,16 @@
 from django.shortcuts import render
-
-
+from .models import todo_item
+from django.http import  HttpResponseRedirect
 # Create your views here.
 
 def todo_view(request):
-    return render(request, "home/home.html",{})
+    all_todo_item=todo_item.objects.all()
+    return render(request, "home.html",
+    {'all_items': all_todo_item})
+
+
+def add_todo(request):
+    c=request.POST['content']
+    new_item=todo_item(content=c)
+    new_item.save()
+    return HttpResponseRedirect('/')
