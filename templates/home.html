@@ -11,8 +11,13 @@
         </h1>
         <ul>
             {% for todo_item in all_items %}
-            <li>
-                {{ todo_item.content }}
+            <li>{{ todo_item.content }}
+                <form action="/del_todo/{{todo_item.id}}/" 
+                style="display: inline;"
+
+                method="POST"> {% csrf_token %}
+                    <input type="submit" value="delete"/>
+                </form>
             </li>
             {% endfor %}
         </ul>
