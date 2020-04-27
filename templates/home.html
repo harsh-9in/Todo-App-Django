@@ -1,32 +1,24 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>
-            To Do List
-        </title>
-    </head>
-    <body>
-        <h1>
-            This is the ToDo List
-        </h1>
-        <ul>
-            {% for todo_item in all_items %}
-            <li>{{ todo_item.content }}
-                <form action="/del_todo/{{todo_item.id}}/" 
-                style="display: inline;"
+{% extends 'base.html' %}
+{% block content %}
+    <h1>
+    This is the ToDo List
+    </h1>
+    <ul>
+    {% for todo_item in all_items %}
+    <li>{{ todo_item.content }}
+        <form action="/del_todo/{{todo_item.id}}/" 
+        style="display: inline;"
 
-                method="POST"> {% csrf_token %}
-                    <input type="submit" value="delete"/>
-                </form>
-            </li>
-            {% endfor %}
-        </ul>
-        <form action="/add_todo/" method="POST"> {% csrf_token %}
-            <input type="text" name="content"/>
-            <input type="submit" value="add"/>
-
+        method="POST"> {% csrf_token %}
+            <input type="submit" value="delete"/>
         </form>
+    </li>
+    {% endfor %}
+    </ul>
+    <form action="/add_todo/" method="POST"> {% csrf_token %}
+    <input type="text" name="content"/>
+    <input type="submit" value="add"/>
 
-    </body>
+    </form>
 
-</html>
+{% endblock %}
