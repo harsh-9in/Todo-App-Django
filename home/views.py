@@ -1,6 +1,14 @@
 from django.shortcuts import render
 from .models import todo_item
 from django.http import  HttpResponseRedirect
+from .serializers import todoSerializer
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework import generics
+from rest_framework import viewsets
+from rest_framework.decorators import api_view
+
 # Create your views here.
 
 def todo_view(request):
@@ -20,3 +28,7 @@ def del_todo(request, todo_id):
     item_delete=todo_item.objects.get(id=todo_id)
     item_delete.delete()
     return HttpResponseRedirect('/')
+
+class todo_api(viewsets.ModelViewSet):
+    serializer_class=todoSerializer
+    queryset=todo_item.objects.all()

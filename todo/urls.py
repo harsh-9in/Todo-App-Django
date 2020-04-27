@@ -14,12 +14,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from home.views import todo_view,add_todo,del_todo
+from django.urls import path,include
+from home.views import todo_view,add_todo,del_todo,todo_api
 
+from rest_framework.routers import DefaultRouter
+
+
+router=DefaultRouter()
+router.register('api',todo_api)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',todo_view),
     path('add_todo/',add_todo),
     path('del_todo/<int:todo_id>/',del_todo),
+    path('',include(router.urls)),
 ]
